@@ -1,50 +1,27 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider')
 
-// const MNEMONIC =
-//   process.env.MNEMONIC ||
-//   'clock radar mass judge dismiss just intact mind resemble fringe diary casino'
-// const INFURA_API_KEY = process.env.INFURA_API_KEY
-// const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY
-
 const privateKey = "0x8a1b191dd20f4e0636f828bb8bab202a6df55d79a852a3416bd862b9a0fd4ebf";
-
-// const walletProvider = provider => new HDWalletProvider({
-//   mnemonic: {
-//     password: "1234!@#$qwer"
-//   },
-//   providerOrUrl: "https://api.baobab.klaytn.net:8651"
-// })
 
 module.exports = {
   //$ truffle test --network <network-name>
   networks: {
     development: {
-      host: 'localhost',
+      host: "localhost",
       port: 8545,
-      network_id: '*', // match any network
-      gas: 7000000,
-      skipDryRun: true,
+      network_id: "*" // Match any network id
     },
     baobab: {
       provider: () => new HDWalletProvider(privateKey, "https://api.baobab.klaytn.net:8651"),
-      network_id: 1001,
-      gas: 8500000,
-      gasPrice: null, // 10 gwei
+      network_id: '1001', //Klaytn baobab testnet's network id
+      gas: '8500000',
+      gasPrice: null
     },
-    maticMumbai: {
-      provider: () => walletProvider('https://api.cypress.klaytn.net:8651'),
-      network_id: 80001,
-      gas: 7000000,
-      gasPrice: 10000000000, // 10 gwei
-      skipDryRun: true,
-    },
-    mainnet: {
-      provider: () => walletProvider(`https://mainnet.infura.io/v3/${INFURA_API_KEY}`),
-      network_id: 1,
-      gas: 7000000,
-      gasPrice: 10000000000, // 10 gwei
-      skipDryRun: true,
-    },
+    cypress: {
+      provider: () => new HDWalletProvider(privateKey, "https://api.cypress.klaytn.net:8651"),
+      network_id: '8217', //Klaytn mainnet's network id
+      gas: '8500000',
+      gasPrice: null
+    }
   },
 
   // Set default mocha options here, use special reporters etc.
